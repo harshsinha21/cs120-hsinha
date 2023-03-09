@@ -5,8 +5,16 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 42.352271, lng: -71.055242000000014 },
-        zoom: 7
+        zoom: 12
     });
+    for (var i = 0; i < vehicles.length; i++) {
+        new google.maps.Marker({
+        position: { lat: vehicles[i].lat, lng: vehicles[i].lng },
+        map: map,
+        icon: 'car.png',
+        title: vehicles[i].id
+    });
+}
 }
 
 var vehicles = [
@@ -19,21 +27,10 @@ var vehicles = [
 ]
 
 
-var icon = {
-    url: "car.png",
-    scaledSize: new google.maps.Size(50, 50)
-};
 
 
-for (var i = 0; i < vehicles.length; i++) {
-    var vehicle = vehicles[i];
-    var marker = new google.maps.Marker({
-        position: { lat: vehicle.lat, lng: vehicle.lng },
-        map: map,
-        icon: icon,
-        title: vehicle.id
-    });
-}
+
+
 
 
 // //window.initMap = initMap;
