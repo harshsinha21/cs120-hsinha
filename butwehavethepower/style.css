@@ -1,0 +1,12 @@
+#lyrics {
+    position: absolute;
+    bottom: 10;
+    left: auto;
+    right: auto;
+    width: 100%;
+    background-color: darkgrey;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    box-sizing: border-box;
+  }

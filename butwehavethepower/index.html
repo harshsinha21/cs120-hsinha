@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Union Strike Folk Song</title>
+	<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+	<h1 id="title">Union Strike Folk Song</h1>
+
+	<video src="https://www.cs.tufts.edu/comp/120/butwehavethepower.mp4" id="butwehavethepower" controls></video>
+	<div id="lyrics">
+		<!-- <p data-start="4" data-end="8">Come gather round, children,</p>
+		<p data-start="8" data-end="10">It's high time ye learned</p>
+		<p data-start="10" data-end="13">'Bout a hero named Homer</p>
+		<p data-start="13" data-end="15">And a devil named Burns.</p>
+		<p data-start="15" data-end="19">We'll march 'till we drop</p>
+		<p data-start="19" data-end="21">The girls and the fellas.</p>
+		<p data-start="21" data-end="23">We'll fight 'till the death</p>
+		<p data-start="23" data-end="27">Or else fold like umbrellas.</p>
+		<p data-start="34" data-end="40">So we'll march day and night</p>
+		<p data-start="40" data-end="43">By the big cooling tower.</p>
+		<p data-start="43" data-end="45">They have the plant</p>
+		<p data-start="45" data-end="49">But we have the power.</p>
+		<p data-start="50" data-end="55">Now do "Classical Gas!"</p>
+		<p data-start="70" data-end="75">So we'll march day and night</p>
+		<p data-start="75" data-end="77">By the big cooling tower.</p>
+		<p data-start="77" data-end="80">They have the plant</p>
+		<p data-start="80" data-end="83">But we have the power.</p> -->
+	</div>
+
+	<script>
+		// Complete this section and create a CSS file named style.css
+
+		const lyrics = [
+			{
+				text: "Come gather round, children,",
+				start: 4,
+				end: 8
+			},
+			{
+				text: "It's high time ye learned",
+				start: 8,
+				end: 10
+			},
+			{
+				text: "'Bout a hero named Homer",
+				start: 10,
+				end: 13
+			},
+			{
+				text: "And a devil named Burns.",
+				start: 13,
+				end: 15
+			},
+			{
+				text: "We'll march 'till we drop",
+				start: 15,
+				end: 19
+			},
+			{
+				text: "The girls and the fellas.",
+				start: 19,
+				end: 21
+			},
+			{
+				text: "We'll fight 'till the death",
+				start: 21,
+				end: 23
+			},
+			{
+				text: "Or else fold like umbrellas.",
+				start: 23,
+				end: 27
+			},
+			{
+				text: "So we'll march day and night",
+				start: 34,
+				end: 40
+			},
+			{
+				text: "By the big cooling tower.",
+				start: 40,
+				end: 43
+			},
+			{
+				text: "They have the plant",
+				start: 43,
+				end: 45
+			},
+			{
+				text: "But we have the power.",
+				start: 45,
+				end: 49
+			},
+			{
+				text: "Lenny: Now do 'Classical Gas!'",
+				start: 50,
+				end: 55
+			},
+			{
+				text: "So we'll march day and night",
+				start: 70,
+				end: 75
+			},
+			{
+				text: "By the big cooling tower.",
+				start: 75,
+				end: 77
+			},
+			{
+				text: "They have the plant",
+				start: 77,
+				end: 80
+			},
+			{
+				text: "But we have the power.",
+				start: 80,
+				end: 82
+			}
+		];
+
+		const lyricsDiv = document.getElementById("lyrics");
+
+		const video = document.getElementById("butwehavethepower");
+
+		video.addEventListener("timeupdate", () => {
+			const currentTime = video.currentTime;
+
+			for(let i = 0; i < lyrics.length; i++) {
+			if (currentTime >= lyrics[i].start && currentTime <= lyrics[i].end) {
+				lyricsDiv.innerHTML = lyrics[i].text;
+				break;
+			}
+		}
+      });
+
+
+	</script>
+</body>
+
+</html>
