@@ -5,7 +5,7 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 42.352271, lng: -71.055242000000014 },
-        zoom: 12
+        zoom: 14
     });
     for (var i = 0; i < vehicles.length; i++) {
         new google.maps.Marker({
@@ -25,12 +25,3 @@ var vehicles = [
     { id: "uf5ZrXYw", lat: 42.3663, lng: -71.0544 },
     { id: "VMerzMH8", lat: 42.3542, lng: -71.0704 }
 ]
-
-
-
-
-
-
-
-
-// //window.initMap = initMap;
