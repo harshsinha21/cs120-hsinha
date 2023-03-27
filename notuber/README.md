@@ -1,3 +1,14 @@
+Lab 10
+
+Update: I am able to output my current location with a red dot marker saved locally.
+
+Must zoom out to see current location.
+
+
+
+---------------------------------------
+Lab 8
+
 Original: 
 
 index.html: 296 B, 4 ms
@@ -56,3 +67,4 @@ markers at the given locations.
 
 
 Current time: 3hrs+
+
