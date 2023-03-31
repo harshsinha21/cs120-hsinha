@@ -1,8 +1,11 @@
 Lab 10
 
-Update: I am able to output my current location with a red dot marker saved locally.
+Update: I am able to output my current location with a red dot marker saved locally. The script is working with the API to get
+other car locations and map them as given with car.png.
 
 Must zoom out to see current location.
+
+Current Time Spent: 9 hrs+
 
 
 
