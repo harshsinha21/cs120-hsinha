@@ -63,7 +63,7 @@ function initMap() {
 
                     google.maps.event.addListener(marker, 'click', function () {
                         const infowindow = new google.maps.InfoWindow({
-                            content: "Vehicle: " + vehicle.username + "<br>" + "Lat: " + vehicle.lat + ",  Lng: " + vehicle.lng
+                            content: "Vehicle: " + vehicle.username + "<br>" + "Lat: " + vehicle.lat + ",  Lng: " + vehicle.lng + "<br>" + "Distance: " + Distance(position.coords.latitude, position.coords.longitude, vehicle.lat, vehicle.lng).toFixed(2) + " miles."
                         });
 
                         infowindow.open(map, marker);
