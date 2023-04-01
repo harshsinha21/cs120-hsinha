@@ -1,11 +1,16 @@
 Lab 10
 
+Update: all markers have infowindows, the current location is outputting, the closest vehicle and its distance.
+
 Update: I am able to output my current location with a red dot marker saved locally. The script is working with the API to get
 other car locations and map them as given with car.png.
 
-Must zoom out to see current location.
+Must zoom out to see current location. I had to implement
+Haversine, the geometry formula was not working or maybe 
+something else.
 
-Current Time Spent: 9 hrs+
+
+Current Time Spent: 13 hrs+
 
 
 
