@@ -1,5 +1,7 @@
 Lab 10
 
+all parts plus one bonus part is completed.
+
 Update: The vehicle marker locations now also include information
 about the distance from the user (me).
 
