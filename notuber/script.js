@@ -1,27 +1,119 @@
 let map;
+let currentlocation;
+let infowindow;
+var url = "https://jordan-marsh.herokuapp.com/rides";
 
 function initMap() {
+    navigator.geolocation.getCurrentPosition(function (position) {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: position.coords.latitude, lng: position.coords.longitude },
+            zoom: 2,
+        });
 
+        currentlocation = new google.maps.Marker(
+            {
+                position: { lat: position.coords.latitude, lng: position.coords.longitude },
+                map: map,
+                icon: "dot.png",
+                title: "Current Location",
+                clickable: true,
+                enableHighAccuracy: true,
+            });
 
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 42.352271, lng: -71.055242000000014 },
-        zoom: 14
-    });
-    for (var i = 0; i < vehicles.length; i++) {
-        new google.maps.Marker({
-        position: { lat: vehicles[i].lat, lng: vehicles[i].lng },
-        map: map,
-        icon: 'car.png',
-        title: vehicles[i].id
+        infowindow = new google.maps.InfoWindow({
+            content: "Finding closest vehicle..."
+        });
+
+        google.maps.event.addListener(currentlocation, 'click', function () {
+            infowindow.open(map, currentlocation);
+        });
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        const username = "acM4zqDt";
+        var latitude = position.coords.latitude.toFixed(2);
+        var longitude = position.coords.longitude.toFixed(2);
+        const parameters = "username=" + username + "&lat=" + latitude + "&lng=" + longitude;
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const vehicles = JSON.parse(xhr.responseText);
+                console.log(xhr.responseText);
+                let closestDist = Infinity;
+                let closestVehicle;
+                for (let i = 0; i < vehicles.length; i++) {
+                    const vehicle = vehicles[i];
+                    const marker = new google.maps.Marker({
+                        position: { lat: vehicle.lat, lng: vehicle.lng },
+                        map: map,
+                        icon: "car.png",
+                        title: vehicle.username,
+                    });
+
+                    const dist = Distance(position.coords.latitude, position.coords.longitude, vehicle.lat, vehicle.lng);
+
+                    if (dist < closestDist) {
+                        closestDist = dist;
+                        closestVehicle = vehicle;
+                    }
+                    
+                    infowindow.setContent("User: " + closestVehicle.username + "<br>" + "Distance: " + closestDist.toFixed(2) + " miles.");
+
+                    google.maps.event.addListener(marker, 'click', function () {
+                        const infowindow = new google.maps.InfoWindow({
+                            content: "Vehicle: " + vehicle.username + "<br>" + "Lat: " + vehicle.lat + ",  Lng: " + vehicle.lng
+                        });
+
+                        infowindow.open(map, marker);
+                    });
+
+                }
+                const polyline = new google.maps.Polyline({
+                    path: [currentlocation.getPosition(), {lat: closestVehicle.lat, lng: closestVehicle.lng}],
+                    geodesic: true,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                });
+                polyline.setMap(map);
+
+                infowindow.setContent("User: " + closestVehicle.username + "<br>" + "Distance: " + closestDist.toFixed(2) + " miles.");
+            } else {
+                console.log("error : " + "Whoops, something is wrong with your data! " + xhr.status);
+                console.log(xhr.responseText);
+            }
+        };
+
+        xhr.send(parameters);
+
     });
 }
+
+function Distance(lat1, lon1, lat2, lon2) {
+    const R = 6371e3;
+    const phi1 = lat1 * Math.PI / 180; 
+    const phi2 = lat2 * Math.PI / 180;
+    const deltaPhi = (lat2 - lat1) * Math.PI / 180;
+    const deltaLambda = (lon2 - lon1) * Math.PI / 180;
+
+    const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+        Math.cos(phi1) * Math.cos(phi2) *
+        Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const d = R * c; 
+    const miles = d / 1609.344; 
+    return miles;
 }
 
-var vehicles = [
-    { id: "mXfkjrFw", lat: 42.3453, lng: -71.0464 },
-    { id: "nZXB8ZHz", lat: 42.3662, lng: -71.0621 },
-    { id: "Tkwu74WC", lat: 42.3603, lng: -71.0547 },
-    { id: "5KWpnAJN", lat: 42.3472, lng: -71.0802 },
-    { id: "uf5ZrXYw", lat: 42.3663, lng: -71.0544 },
-    { id: "VMerzMH8", lat: 42.3542, lng: -71.0704 }
-]
+
+
+
+
+
+
+
+
+
