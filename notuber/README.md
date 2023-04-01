@@ -1,5 +1,8 @@
 Lab 10
 
+update: I am able to print a polyline from my currenlocation
+marker to the closestvehicle marker. 
+
 Update: all markers have infowindows, the current location is outputting, the closest vehicle and its distance.
 
 Update: I am able to output my current location with a red dot marker saved locally. The script is working with the API to get
@@ -8,6 +11,22 @@ other car locations and map them as given with car.png.
 Must zoom out to see current location. I had to implement
 Haversine, the geometry formula was not working or maybe 
 something else.
+
+Question: 
+why does this need to be declared before the readystate function.
+  infowindow = new google.maps.InfoWindow({
+            content: "Finding closest vehicle..."
+        });
+
+        google.maps.event.addListener(currentlocation, 'click', function () {
+            infowindow.open(map, currentlocation);
+        });
+In the readystate function we call the infowindow with the addlistener but for some reason it does not work unless
+i have a buffer infowindow set in place earlier. is this necessary 
+or is my code just bad/can be improved upon?
+
+I had some difficulties with mapping the polyline but i took it out
+of the for loop and it worked!
 
 
 Current Time Spent: 13 hrs+

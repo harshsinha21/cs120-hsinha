@@ -22,7 +22,6 @@ function initMap() {
 
         infowindow = new google.maps.InfoWindow({
             content: "Finding closest vehicle..."
-            //content: "User: " + closestVehicle.username + "<br>" + "Distance: " + closestDist.toFixed(2) + " miles."
         });
 
         google.maps.event.addListener(currentlocation, 'click', function () {
@@ -59,6 +58,8 @@ function initMap() {
                         closestDist = dist;
                         closestVehicle = vehicle;
                     }
+                    
+                    infowindow.setContent("User: " + closestVehicle.username + "<br>" + "Distance: " + closestDist.toFixed(2) + " miles.");
 
                     google.maps.event.addListener(marker, 'click', function () {
                         const infowindow = new google.maps.InfoWindow({
@@ -69,6 +70,14 @@ function initMap() {
                     });
 
                 }
+                const polyline = new google.maps.Polyline({
+                    path: [currentlocation.getPosition(), {lat: closestVehicle.lat, lng: closestVehicle.lng}],
+                    geodesic: true,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                });
+                polyline.setMap(map);
 
                 infowindow.setContent("User: " + closestVehicle.username + "<br>" + "Distance: " + closestDist.toFixed(2) + " miles.");
             } else {
