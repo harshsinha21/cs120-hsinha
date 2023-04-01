@@ -1,6 +1,9 @@
 Lab 10
 
-update: I am able to print a polyline from my currenlocation
+Update: The vehicle marker locations now also include information
+about the distance from the user (me).
+
+Update: I am able to print a polyline from my currenlocation
 marker to the closestvehicle marker. 
 
 Update: all markers have infowindows, the current location is outputting, the closest vehicle and its distance.
@@ -29,7 +32,7 @@ I had some difficulties with mapping the polyline but i took it out
 of the for loop and it worked!
 
 
-Current Time Spent: 13 hrs+
+Current Time Spent: 15 hrs+
 
 
 
