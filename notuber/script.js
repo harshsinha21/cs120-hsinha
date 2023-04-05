@@ -33,8 +33,8 @@ function initMap() {
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
         const username = "acM4zqDt";
-        var latitude = position.coords.latitude.toFixed(2);
-        var longitude = position.coords.longitude.toFixed(2);
+        const latitude = position.coords.latitude.toFixed(2);
+        const longitude = position.coords.longitude.toFixed(2);
         const parameters = "username=" + username + "&lat=" + latitude + "&lng=" + longitude;
 
         xhr.onreadystatechange = function () {
@@ -91,12 +91,12 @@ function initMap() {
     });
 }
 
-function Distance(lat1, lon1, lat2, lon2) {
+function Distance(lat, lon, lat1, lon1) {
     const R = 6371e3;
-    const phi1 = lat1 * Math.PI / 180; 
-    const phi2 = lat2 * Math.PI / 180;
-    const deltaPhi = (lat2 - lat1) * Math.PI / 180;
-    const deltaLambda = (lon2 - lon1) * Math.PI / 180;
+    const phi1 = lat * Math.PI / 180; 
+    const phi2 = lat * Math.PI / 180;
+    const deltaPhi = (lat1 - lat) * Math.PI / 180;
+    const deltaLambda = (lon1 - lon) * Math.PI / 180;
 
     const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
         Math.cos(phi1) * Math.cos(phi2) *
