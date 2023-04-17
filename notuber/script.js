@@ -1,7 +1,7 @@
 let map;
 let currentlocation;
 let infowindow;
-var url = "https://jordan-marsh.herokuapp.com/rides";
+var url = "https://pure-plateau-41818.herokuapp.com/rides";
 
 function initMap() {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -19,6 +19,7 @@ function initMap() {
                 clickable: true,
                 enableHighAccuracy: true,
             });
+
 
         infowindow = new google.maps.InfoWindow({
             content: "Finding closest vehicle..."
@@ -58,7 +59,7 @@ function initMap() {
                         closestDist = dist;
                         closestVehicle = vehicle;
                     }
-                    
+
                     infowindow.setContent("User: " + closestVehicle.username + "<br>" + "Distance: " + closestDist.toFixed(2) + " miles.");
 
                     google.maps.event.addListener(marker, 'click', function () {
@@ -71,7 +72,7 @@ function initMap() {
 
                 }
                 const polyline = new google.maps.Polyline({
-                    path: [currentlocation.getPosition(), {lat: closestVehicle.lat, lng: closestVehicle.lng}],
+                    path: [currentlocation.getPosition(), { lat: closestVehicle.lat, lng: closestVehicle.lng }],
                     geodesic: true,
                     strokeColor: '#FF0000',
                     strokeOpacity: 1.0,
@@ -93,7 +94,7 @@ function initMap() {
 
 function Distance(lat, lon, lat1, lon1) {
     const R = 6371e3;
-    const phi1 = lat * Math.PI / 180; 
+    const phi1 = lat * Math.PI / 180;
     const phi2 = lat * Math.PI / 180;
     const deltaPhi = (lat1 - lat) * Math.PI / 180;
     const deltaLambda = (lon1 - lon) * Math.PI / 180;
@@ -103,8 +104,8 @@ function Distance(lat, lon, lat1, lon1) {
         Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    const d = R * c; 
-    const miles = d / 1609.344; 
+    const d = R * c;
+    const miles = d / 1609.344;
     return miles;
 }
 
