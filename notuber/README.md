@@ -17,18 +17,6 @@ Must zoom out to see current location. I had to implement
 Haversine, the geometry formula was not working or maybe 
 something else.
 
-Question: 
-why does this need to be declared before the readystate function.
-  infowindow = new google.maps.InfoWindow({
-            content: "Finding closest vehicle..."
-        });
-
-        google.maps.event.addListener(currentlocation, 'click', function () {
-            infowindow.open(map, currentlocation);
-        });
-In the readystate function we call the infowindow with the addlistener but for some reason it does not work unless
-i have a buffer infowindow set in place earlier. is this necessary 
-or is my code just bad/can be improved upon?
 
 I had some difficulties with mapping the polyline but i took it out
 of the for loop and it worked!

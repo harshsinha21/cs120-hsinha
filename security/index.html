@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Not Uber Security Assessment</title>
+</head>
+
+<body>
+    <h1>Introduction:</h1>
+    <p>Introducing Not Uber, it is a web application connecting customers with drivers for rides.
+        Customers can request rides and drivers can accept them. This application can track passenger location and
+        driver location in real-time.
+        I was hired as a security analyst to conduct a security assessment of this application to identify if there are
+        any potential vulnerabilities.
+    </p>
+    <h1>Methodology:</h1>
+    <p>To assess the security vulnerabilities of this web application I did manual testing and used automated tools like
+        Burp Suite, curl and OWASP ZAP. The assessment conducts a vulnerability test of the web application, of its
+        input validation, use of SQL injection, Cross-site scripting (XSS), and Cross-site request forgery (CSRF).</p>
+
+    <h1>Abstract of Findings:</h1>
+    <p>This web application Not Uber has several vulnerabilities in its security. These identified risks could be
+        exploited to steal sensitive information, take control of the application and even compromise user accounts. The
+        identified vulnerabilities include SQL injection, lack of input validation, XSS vulnerabilities and insecure
+        transmission of data.</p>
+
+    <h1>Issues Found:</h1>
+    <h2>Issue 1: SQL Injection</h2>
+    <p>Location: app.get('/passenger.json') app.get(‘/vehicle.json’)<br>
+        Severity: High.<br>
+        Description: The Not Uber web application is prone to SQL injection attacks, since it does not validate user
+        input. Someone can use this form of attack to gain control of the database breaching privacy. The vulnerability
+        can be exploited by an attacker who can send a specially crafted SQL query to the application.</p>
+    <p>Proof of vulnerability:</p>
+    <pre><code>theQuery = "SELECT * FROM passengers WHERE username = '" + usernameEntry + "'";
+client.query(theQuery, (error, result) => {
+    if (!error) {
+        response.send(result.rows);
+    }
+});</code></pre>
+    <p>Since, the query is string concatenation the user can exploit this by injecting SQL code in usernameEntry ‘ or
+        1=1</p>
+    <p>Resolution: To mitigate this vulnerability, the application should use parameterized queries to sanitize user
+        input.</p>
+    <pre><code>theQuery = "SELECT * FROM vehicles WHERE username = $1";
+client.query(theQuery, [usernameEntry], (error, result) => {
+	if (!error) {
+		response.send(result.rows);
+	}
+});</code></pre>
+
+    <h2>Issue 2: Input Validation/XSS</h2>
+    <p>Location: app.get('/passenger.json') app.get(‘/vehicle.json’)<br>
+        Severity: Medium<br>
+        Description: The Not Uber web application is also vulnerable to Cross-Site Scripting (XSS). A person can inject
+        a code into the application which would execute their script. This is a medium vulnerability because it can only
+        be exploited for specific requests.</p>
+    <p>Proof of vulnerability: The following can be used to exploit the XSS risk or SQL injection. We can enter username
+        parameter as (<code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code>)</p>
+    <p>Resolution: To mitigate this vulnerability, we would apply the same solution as the last vulnerability by
+        creating a parameterized query for usernameEntry. Additionally, the application should validate user input and
+        encode special characters that can be used for XSS attacks.</p>
+
+    <h2>Issue 3: Insecure data transmission</h2>
+
+    <p>Location: app.post('/update')</br>
+        Severity: Medium</br>
+        Description: The /update and /rides endpoints transmit confidential data e.g. location in plain
+        text, which can easily be accessed by attackers. Using the OWASP ZAP tool I was able to see data in plain text.
+    </p>
+    <p>Proof of vulnerability: <img src="zap.png" alt="Screenshot of ZAP tool" /></p>
+    <p>Resolution: To mitigate this vulnerability, the application should not give detailed information
+        about the error and have authentication to restrict access.</p>
+
+    <h1>Conclusion</h1>
+    <p>In my findings, there were several security and privacy concerns on the Not Uber web application, that could
+        be exploited to take control of the database or steal information. We have identified vulnerabilities like
+        SQL injection, XSS and insecure data transmission.</p>
